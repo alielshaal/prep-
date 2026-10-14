@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My School Project</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#07111f;
+  color:#f1f6ff;
+}
+header{
+  padding:22px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #203650;
+}
+.logo{font-size:20px;font-weight:bold;color:#65b8ff}
+button,a{cursor:pointer}
+select{
+  background:#10243a;color:white;
+  padding:9px;border:1px solid #315273;border-radius:9px;
+}
+.hero{
+  text-align:center;padding:85px 20px 65px;
+  background:radial-gradient(ellipse at top,#153e70 0%,#07111f 70%);
+}
+.tag{
+  color:#78c6ff;border:1px solid #285b89;
+  border-radius:30px;padding:9px 14px;
+  display:inline-block;font-size:12px;letter-spacing:2px;
+}
+h1{font-size:clamp(35px,7vw,65px);margin:25px 0 15px}
+h1 span{color:#60b8ff}
+.hero p{color:#a9bfd9;line-height:1.8;max-width:550px;margin:0 auto 28px}
+.btn{
+  display:inline-block;background:#278cff;color:white;
+  padding:14px 22px;border-radius:10px;
+  text-decoration:none;font-weight:bold;
+  box-shadow:0 0 25px #1677e833;
+}
+section{max-width:1000px;margin:auto;padding:35px 22px}
+.section-title{font-size:27px;margin-bottom:8px}
+.sub{color:#94a9c2;line-height:1.7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:25px}
+.card{
+  background:linear-gradient(145deg,#12243a,#0a1728);
+  border:1px solid #243d59;border-radius:18px;padding:25px;
+}
+.symbol{font-size:32px}
+.card h3{margin:18px 0 10px}
+.card p{color:#9fb4ce;line-height:1.7;min-height:48px}
+.card a{margin-top:12px}
+footer{text-align:center;color:#8097b2;padding:30px;border-top:1px solid #203650;font-size:13px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">✦ PROJECT HUB</div>
+  <select id="lang" aria-label="Language">
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+  </select>
+</header>
+
+<div class="hero">
+  <div class="tag" data-en="LEARN • EXPLORE • DISCOVER"
+       data-ar="تعلّم • استكشف • اكتشف">LEARN • EXPLORE • DISCOVER</div>
+  <h1 data-en="Ideas become <span>reality.</span>"
+       data-ar="أفكار تتحول إلى <span>واقع.</span>">Ideas become <span>reality.</span></h1>
+  <p data-en="Welcome to my school project. Explore the presentation and watch the project video below."
+     data-ar="أهلًا بيك في مشروعي المدرسي. استكشف العرض التقديمي وشاهد فيديو المشروع بالأسفل.">
+     Welcome to my school project. Explore the presentation and watch the project video below.
+  </p>
+  <a class="btn" href="#resources" data-en="Explore the project ↓"
+     data-ar="استكشف المشروع ↓">Explore the project ↓</a>
+</div>
+
+<section id="resources">
+  <div class="section-title" data-en="Project resources" data-ar="ملفات المشروع">Project resources</div>
+  <div class="sub" data-en="Everything you need, in one place."
+       data-ar="كل محتويات المشروع في مكان واحد.">Everything you need, in one place.</div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="symbol">▤</div>
+      <h3 data-en="Presentation" data-ar="العرض التقديمي">Presentation</h3>
+      <p data-en="Explore the slides and learn more about the topic."
+         data-ar="تصفّح الشرائح وتعرّف على موضوع المشروع.">Explore the slides and learn more about the topic.</p>
+      <a class="btn" id="ppt" href="#"
+         data-en="Coming soon" data-ar="قريبًا"
+         data-coming-en="Coming soon" data-coming-ar="قريبًا">Coming soon</a>
+    </div>
+    <div class="card">
+      <div class="symbol">▷</div>
+      <h3 data-en="Project video" data-ar="فيديو المشروع">Project video</h3>
+      <p data-en="Watch the video prepared for this school project."
+         data-ar="شاهد الفيديو المُعدّ لهذا المشروع المدرسي.">Watch the video prepared for this school project.</p>
+      <a class="btn" id="vid" href="#"
+         data-en="Coming soon" data-ar="قريبًا"
+         data-coming-en="Coming soon" data-coming-ar="قريبًا">Coming soon</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span data-en="MY SCHOOL PROJECT • THANK YOU FOR VISITING"
+        data-ar="مشروعي المدرسي • شكرًا لزيارتك">MY SCHOOL PROJECT • THANK YOU FOR VISITING</span>
+</footer>
+
+<script>
+const lang = document.getElementById('lang');
+function setLanguage(value){
+  document.documentElement.lang=value;
+  document.documentElement.dir=value==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const content=el.getAttribute('data-'+value);
+    if(content!==null) el.innerHTML=content;
+  });
+  ['ppt','vid'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el.dataset.url){
+      el.textContent=value==='ar'?'افتح الرابط ↗':'Open link ↗';
+    }
+  });
+}
+lang.addEventListener('change',e=>setLanguage(e.target.value));
+setLanguage('en');
+
+/* Add your links here later */
+const presentationLink = '';
+const videoLink = '';
+
+function setupLink(id,url){
+  const el=document.getElementById(id);
+  if(url){
+    el.href=url;
+    el.target='_blank';
+    el.rel='noopener noreferrer';
+    el.dataset.url=url;
+    el.textContent=lang.value==='ar'?'افتح الرابط ↗':'Open link ↗';
+  }
+}
+setupLink('ppt',presentationLink);
+setupLink('vid',videoLink);
+</script>
+</body>
+</html>
