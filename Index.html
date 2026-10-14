@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PREP 1-E</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Dancing+Script:wght@500;600&display=swap');
+
+:root {
+  --gold: #e4bd62;
+  --gold-light: #ffe6a0;
+  --black: #080808;
+  --panel: #121212;
+  --muted: #aaa;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: #f6f1e5;
+  font-family: 'Cairo', sans-serif;
+  min-height: 100vh;
+}
+
+button, a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #050505;
+  animation: introOut 1s ease 3s forwards;
+}
+
+.intro h1 {
+  direction: ltr;
+  color: var(--gold);
+  font-size: clamp(2.5rem, 9vw, 5.5rem);
+  letter-spacing: 5px;
+  text-shadow: 0 0 35px #c89b3c55;
+  animation: titleIn 1.5s ease both;
+}
+
+.intro-line {
+  height: 2px;
+  width: 0;
+  background: var(--gold);
+  margin-top: 20px;
+  animation: lineIn 1s ease .5s forwards;
+}
+
+@keyframes titleIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lineIn {
+  to { width: min(260px, 65vw); }
+}
+
+@keyframes introOut {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #090909ed;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid #e4bd6230;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  direction: ltr;
+  color: var(--gold);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 9px 16px;
+  color: #c6c6c6;
+  background: transparent;
+  transition: .25s;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  color: var(--gold-light);
+  background: #e4bd6215;
+  border-color: #e4bd6255;
+}
+
+.page {
+  display: none;
+  max-width: 1200px;
+  min-height: 74vh;
+  padding: 45px 22px 65px;
+  margin: auto;
+  animation: pageIn .45s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.home-hero {
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e4bd6225;
+  border-radius: 25px;
+  background:
+    radial-gradient(ellipse at 50% 40%, #6b4d171b, transparent 65%),
+    linear-gradient(145deg, #111, #080808 65%);
+}
+
+.home-hero::before,
+.home-hero::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border: 1px solid #e4bd6217;
+  border-radius: 50%;
+}
+
+.home-hero::before {
+  top: -130px;
+  right: -75px;
+}
+
+.home-hero::after {
+  bottom: -150px;
+  left: -70px;
+}
+
+.home-title {
+  direction: ltr;
+  font-size: clamp(3rem, 10vw, 7rem);
+  letter-spacing: 4px;
+  line-height: 1.2;
+  color: var(--gold);
+  text-shadow: 0 0 35px #e4bd6220;
+}
+
+.home-credit {
+  color: #d4c49f;
+  direction: ltr;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-heading h2 {
+  color: var(--gold);
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 8px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.content-card {
+  background: linear-gradient(145deg, #151515, #0d0d0d);
+  border: 1px solid #e4bd6238;
+  border-radius: 20px;
+  padding: clamp(18px, 4vw, 36px);
+  box-shadow: 0 15px 45px #0008;
+}
+
+.video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #050505;
+  border: 1px solid #6c5424;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-frame video,
+.video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: contain;
+  background: #050505;
+}
+
+.placeholder {
+  text-align: center;
+  color: #bcbcbc;
+  padding: 25px;
+}
+
+.play-icon {
+  color: var(--gold);
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+}
+
+.credit {
+  direction: ltr;
+  text-align: center;
+  color: var(--gold-light);
+  margin-top: 22px;
+  font-size: .95rem;
+  letter-spacing: .5px;
+}
+
+.ppt-area {
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 22px;
+  text-align: center;
+}
+
+.file-icon {
+  font-size: 4.5rem;
+  color: var(--gold);
+}
+
+.ppt-area h3 {
+  font-size: 1.5rem;
+  color: #f5e7c2;
+}
+
+.ppt-area p {
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.gold-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #f3d98f, #c69a3f);
+  color: #171107;
+  text-decoration: none;
+  font-weight: 800;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 27px;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.gold-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px #e4bd6230;
+}
+
+.site-footer {
+  border-top: 1px solid #e4bd6228;
+  padding: 22px 15px 14px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.footer-note {
+  font-family: 'Dancing Script', cursive;
+  direction: ltr;
+  color: #bba46f;
+  font-size: 15px;
+  opacity: .8;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    justify-content: center;
+    padding: 14px 12px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    padding: 8px 12px;
+    font-size: .9rem;
+  }
+
+  .page {
+    padding: 25px 14px 45px;
+  }
+
+  .home-hero {
+    min-height: 65vh;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="intro" id="intro">
+  <h1>PREP 1-E</h1>
+  <div class="intro-line"></div>
+</div>
+
+<header>
+  <nav class="navbar">
+    <div class="logo">PREP 1-E</div>
+
+    <div class="nav-links">
+      <button class="nav-btn active" data-page="home">الرئيسية</button>
+      <button class="nav-btn" data-page="video">الفيديو</button>
+      <button class="nav-btn" data-page="ppt">الباوربوينت</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- الصفحة الرئيسية -->
+  <section class="page active" id="home">
+    <div class="home-hero">
+      <h1 class="home-title">PREP 1-E</h1>
+      <p class="home-credit">Made by 1-E</p>
+    </div>
+  </section>
+
+  <!-- صفحة الفيديو -->
+  <section class="page" id="video">
+    <div class="section-heading">
+      <h2>الفيديو</h2>
+      <p>شاهد الفيديو مباشرةً من داخل الموقع</p>
+    </div>
+
+    <div class="content-card">
+      <div class="video-frame" id="videoFrame">
+        <div class="placeholder">
+          <div class="play-icon">▶</div>
+          <p>سيظهر الفيديو هنا بعد إضافة رابطه</p>
+        </div>
+      </div>
+
+      <p class="credit">Made by yousef fathy</p>
+    </div>
+  </section>
+
+  <!-- صفحة الباوربوينت -->
+  <section class="page" id="ppt">
+    <div class="section-heading">
+      <h2>الباوربوينت</h2>
+      <p>العرض التقديمي</p>
+    </div>
+
+    <div class="content-card">
+      <div class="ppt-area">
+        <div class="file-icon">▤</div>
+        <h3>العرض التقديمي</h3>
+        <p>اضغط على الزر لفتح الباوربوينت ومشاهدة العرض كاملًا.</p>
+        <a class="gold-btn" id="pptButton" href="#" target="_blank"
+           rel="noopener noreferrer">فتح الباوربوينت ↗</a>
+        <p id="pptMessage">سيتم إضافة رابط الباوربوينت هنا.</p>
+      </div>
+
+      <p class="credit">Made by baraa hady and omar</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-note">Ali Elshal</p>
+</footer>
+
+<script>
+/* ضع رابط الفيديو ورابط الباوربوينت هنا */
+const VIDEO_LINK = "";
+const POWERPOINT_LINK = "";
+
+/* التنقل بين الصفحات */
+const navButtons = document.querySelectorAll(".nav-btn");
+const pages = document.querySelectorAll(".page");
+
+navButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const target = button.dataset.page;
+
+    pages.forEach(page => page.classList.remove("active"));
+    navButtons.forEach(item => item.classList.remove("active"));
+
+    document.getElementById(target).classList.add("active");
+    button.classList.add("active");
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+
+/* تجهيز الفيديو */
+function setupVideo(link) {
+  const frame = document.getElementById("videoFrame");
+  if (!link.trim()) return;
+
+  let id = "";
+  let isYouTube = false;
+
+  try {
+    const url = new URL(link);
+
+    if (url.hostname.includes("youtu.be")) {
+      id = url.pathname.slice(1);
+      isYouTube = true;
+    } else if (
+      url.hostname.includes("youtube.com") ||
+      url.hostname.includes("youtube-nocookie.com")
+    ) {
+      if (url.pathname === "/watch") {
+        id = url.searchParams.get("v") || "";
+      } else {
+        id = url.pathname.split("/").filter(Boolean).pop() || "";
+      }
+      isYouTube = true;
+    }
+  } catch (error) {}
+
+  if (isYouTube && /^[\w-]{11}$/.test(id)) {
+    frame.innerHTML = "";
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + id;
+    iframe.title = "فيديو الموقع";
+    iframe.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    frame.appendChild(iframe);
+  } else if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(link)) {
+    frame.innerHTML = "";
+    const video = document.createElement("video");
+    video.src = link;
+    video.controls = true;
+    video.playsInline = true;
+    frame.appendChild(video);
+  } else {
+    frame.innerHTML =
+      '<div class="placeholder"><p>الرابط ده مش قابل للتشغيل داخل الموقع. استخدم رابط YouTube أو ملف فيديو مباشر.</p></div>';
+  }
+}
+
+/* تجهيز رابط الباوربوينت */
+if (POWERPOINT_LINK.trim()) {
+  const pptButton = document.getElementById("pptButton");
+  pptButton.href = POWERPOINT_LINK;
+  document.getElementById("pptMessage").hidden = true;
+} else {
+  document.getElementById("pptButton").addEventListener("click", event => {
+    event.preventDefault();
+    alert("أضف رابط الباوربوينت في الكود أولًا.");
+  });
+}
+
+setupVideo(VIDEO_LINK);
+
+/* إخفاء المقدمة بعد 3 ثوانٍ */
+setTimeout(() => {
+  const intro = document.getElementById("intro");
+  if (intro) intro.style.display = "none";
+}, 4000);
+</script>
+
+</body>
+</html>
